@@ -22,6 +22,7 @@
     
     JGPixelData *pixelData = [JGPixelData pixelDataWithImage:self.beforeImage.image];
     
+    /*
     for (int x = 0; x < pixelData.width; x++) {
         for (int y = 0; y < pixelData.height; y++) {
             JGColorComponents color = [pixelData colorComponentsAtXIndex:x yIndex:y];
@@ -34,6 +35,13 @@
             [pixelData setColorComponents:color atXIndex:x yIndex:y];
         }
     }
+    */
+     
+    [pixelData processPixelsWithBlock:^(JGColorComponents *color, int x, int y) {
+        UInt8 temp = color->red;
+        color->red = color->blue;
+        color->blue = temp;
+    }];
     
     self.afterImage.image = pixelData.image;
 }

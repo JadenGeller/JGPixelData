@@ -128,4 +128,16 @@
     return [[JGPixelData alloc]initWithSize:size];
 }
 
+-(void)processPixelsWithBlock:(void (^)(JGColorComponents *color, int x, int y))updatePixelColor{
+    for (int x = 0; x < self.width; x++) {
+        for (int y = 0; y < self.height; y++) {
+            JGColorComponents color = [self colorComponentsAtXIndex:x yIndex:y];
+            updatePixelColor(&color, x, y);
+            
+            [self setColorComponents:color atXIndex:x yIndex:y];
+        }
+    }
+
+}
+
 @end

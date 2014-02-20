@@ -23,6 +23,8 @@ typedef struct ColorComponents {
 -(JGColorComponents)colorComponentsAtXIndex:(NSUInteger)xIndex yIndex:(NSUInteger)yIndex;
 -(void)setColorComponents:(JGColorComponents)color atXIndex:(NSUInteger)xIndex yIndex:(NSUInteger)yIndex;
 
+-(void)processPixelsWithBlock:(void (^)(JGColorComponents *color, int x, int y))updatePixelColor;
+
 @property (nonatomic, readonly) UIImage *image;
 @property (nonatomic, readonly) NSUInteger width;
 @property (nonatomic, readonly) NSUInteger height;
