@@ -21,26 +21,17 @@
 	// Do any additional setup after loading the view, typically from a nib.
     
     JGPixelData *pixelData = [JGPixelData pixelDataWithImage:self.beforeImage.image];
-    
-    /*
-    for (int x = 0; x < pixelData.width; x++) {
-        for (int y = 0; y < pixelData.height; y++) {
-            JGColorComponents color = [pixelData colorComponentsAtXIndex:x yIndex:y];
-            
-            // Swap red and blue colors
-            UInt8 temp = color.red;
-            color.red = color.blue;
-            color.blue = temp;
-            
-            [pixelData setColorComponents:color atXIndex:x yIndex:y];
-        }
-    }
-    */
      
     [pixelData processPixelsWithBlock:^(JGColorComponents *color, int x, int y) {
         UInt8 temp = color->red;
-        color->red = color->blue;
-        color->blue = temp;
+        if (x > y) {
+            color->red = color->blue;
+            color->blue = temp;
+        }
+        else{
+            color->red = color->green;
+            color->green = temp;
+        }
     }];
     
     self.afterImage.image = pixelData.image;
