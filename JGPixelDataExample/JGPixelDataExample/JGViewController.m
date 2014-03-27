@@ -21,8 +21,7 @@
 	// Do any additional setup after loading the view, typically from a nib.
     
     JGPixelData *pixelData = [JGPixelData pixelDataWithImage:self.beforeImage.image];
-    
-    // Block Method -- Faster
+
     [pixelData processPixelsWithBlock:^(JGColorComponents *color, int x, int y) {
         UInt8 temp = color->red;
         if (x > y) {
