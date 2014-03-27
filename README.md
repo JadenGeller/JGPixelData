@@ -18,7 +18,19 @@ JGPixelData simplifies the process of editing the raw pixel RGBA values of a UII
 
 ```
 
-Alternatively, it is possible to manually loop over all pixels in the image using nested for loops.
+
+Once you make the desired changes to the individual pixels, simply use the image property of a JGPixelData instance to get the newly modified image.
+
+```
+UIImage *editedImage = pixelData.image;
+```
+
+It's as easy as that!
+
+Alternative Loop Mechanisms
+===========
+
+It is possible to manually loop over all pixels in the image using nested for loops.
 
 ```
 for (int x = 0; x < pixelData.width; x++) {
@@ -34,8 +46,6 @@ for (int x = 0; x < pixelData.width; x++) {
             color->red = color->green;
             color->green = temp;
         }
-    }
-}];
         
         [pixelData setColorComponents:color atXIndex:x yIndex:y];
     }
@@ -43,10 +53,46 @@ for (int x = 0; x < pixelData.width; x++) {
 
 ```
 
-Once you make the desired changes to the individual pixels, simply use the image property of a JGPixelData instance to get the newly modified image.
+Additionally, fast enumation is supported, so pixels can be looped over with a for in loop. Note that this is not recommended as it is slower in its current implmentation.
 
 ```
-UIImage *editedImage = pixelData.image;
+for (JGPixel *pixel in pixelData) {
+    
+    UInt8 temp = pixel.red;
+    if (pixel.x > pixel.y) {
+        pixel.red = pixel.blue;
+        pixel.blue = temp;
+    }
+    else{
+        pixel.red = pixel.green;
+        pixel.green = temp;
+    }
+}
 ```
 
-It's as easy as that!
+Individual Pixel Access
+===========
+
+Individual pixels can be accessed in one of two ways. The first way is by getting and setting JGColorComponents using the `colorComponentsAtXIndex:yIndex:` and `setColorComponents:atXIndex:yIndex:` methods, respectively. Note that this method is used in the above for loop mechanism.
+
+```
+JGColorComponents color = [pixelData colorComponentsAtXIndex:x yIndex:y];
+
+// Modify color components
+
+[pixelData setColorComponents:color atXIndex:x yIndex:y];
+```
+
+The second, more elegant way to access individual pixels is by requesting a JGPixel instance for a given x-y positiion using the `pixelAtXIndex:yIndex:` method. With a JGPixel object, there is no need to set the color components back afterwards, as the JGPixel is linked to its JGPixelData, and automatically relays the changes.
+
+```
+JGPixel *pixel = [pixelData pixelAtXIndex:x yIndex:y];
+
+// Modify red, green, blue, or alpha
+// And you are good!
+```
+
+Other
+===========
+
+For convenience, JGPixelData provides a `width` and `height` method that returns the pixel width and pixel height, respectively, or the pixel data.
