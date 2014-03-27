@@ -69,37 +69,31 @@
         NSInteger green = 0;
         NSInteger blue  = 0;
         
-        NSInteger count = 0;
-        
         // Sum pixels that are in range and in visually continuous
         if ([referenceData inRange:left] && x > 0){
             red   += left->red;
             green += left->green;
             blue  += left->blue;
-            count++;
         }
         if ([referenceData inRange:right] && x < pixelData.width - 1){
             red   -= right->red;
             green -= right->green;
             blue  -= right->blue;
-            count++;
         }
         if ([referenceData inRange:top] && y > 0){
             red   += top->red;
             green += top->green;
             blue  += top->blue;
-            count++;
         }
         if ([referenceData inRange:bottom] && y < pixelData.height - 1){
             red   -= bottom->red;
             green -= bottom->green;
             blue  -= bottom->blue;
-            count++;
         }
         
-        if (red)   pixel->red   = MAX(red   / count, 0);
-        if (green) pixel->green = MAX(green / count, 0);
-        if (blue)  pixel->blue  = MAX(blue  / count, 0);
+        if (red)   pixel->red   = MAX(0, red);
+        if (green) pixel->green = MAX(0, green);
+        if (blue)  pixel->blue  = MAX(0, blue);
         
         // Increment variables
         x++; if (x > pixelData.width) { x = 0; y++; }
