@@ -8,7 +8,6 @@
 
 #import "JGViewController.h"
 #import "JGPixelData.h"
-#import "UIImage+JGPixelData.h"
 
 @interface JGViewController ()
 
