@@ -8,25 +8,29 @@
 
 #import <Foundation/Foundation.h>
 
-typedef struct ColorComponents {
+typedef struct JGColorComponents {
     UInt8 red;
     UInt8 green;
     UInt8 blue;
     UInt8 alpha;
     
-} JGColorComponents;
+} JGPixel;
 
 @interface JGPixelData : NSObject
 
 +(JGPixelData*)pixelDataWithImage:(UIImage*)image;
 +(JGPixelData*)pixelDataWithSize:(CGSize)size;
 
--(JGColorComponents*)colorComponentsAtXIndex:(NSUInteger)xIndex yIndex:(NSUInteger)yIndex;
+-(JGPixel*)pixelWithX:(NSUInteger)xIndex y:(NSUInteger)yIndex;
 
--(void)processPixelsWithBlock:(void (^)(JGColorComponents *color, int x, int y))updatePixelColor;
+-(void)processPixelsWithBlock:(void (^)(JGPixel *color, int x, int y))updatePixelColor;
 
 @property (nonatomic, readonly) UIImage *image;
 @property (nonatomic, readonly) NSUInteger width;
 @property (nonatomic, readonly) NSUInteger height;
+
+// Can be used for wacky iterations
+@property (nonatomic, readonly) JGPixel *firstPixel;
+@property (nonatomic, readonly) JGPixel *lastPixel;
 
 @end

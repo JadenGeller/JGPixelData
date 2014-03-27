@@ -22,17 +22,22 @@
     
     JGPixelData *pixelData = [JGPixelData pixelDataWithImage:self.beforeImage.image];
 
-    [pixelData processPixelsWithBlock:^(JGColorComponents *color, int x, int y) {
-        UInt8 temp = color->red;
-        if (x > y) {
-            color->red = color->blue;
-            color->blue = temp;
-        }
-        else{
-            color->red = color->green;
-            color->green = temp;
-        }
-    }];
+//    [pixelData processPixelsWithBlock:^(JGColorComponents *color, int x, int y) {
+//        UInt8 temp = color->red;
+//        if (x > y) {
+//            color->red = color->blue;
+//            color->blue = temp;
+//        }
+//        else{
+//            color->red = color->green;
+//            color->green = temp;
+//        }
+//    }];
+    
+    for (JGColorComponents *pixel = pixelData.firstPixel; pixel <= pixelData.lastPixel; pixel++) {
+        pixel->red = pixel->green;
+        pixel->green = pixel->blue;
+    }
     
     self.afterImage.image = pixelData.image;
 }

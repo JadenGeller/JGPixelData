@@ -17,6 +17,8 @@
 
 @implementation JGPixelData
 
+@synthesize lastPixel = _lastPixel, width = _width, height = _height;
+
 -(id)initWithImage:(UIImage*)image{
     self = [super init];
     if (self) {
@@ -39,9 +41,8 @@
     _data = (NSData *)CFBridgingRelease(CGDataProviderCopyData(CGImageGetDataProvider(self.imageRef)));
 }
 
--(JGColorComponents*)colorComponentsAtXIndex:(NSUInteger)xIndex yIndex:(NSUInteger)yIndex{
-    
-    return (JGColorComponents*)(self.data.bytes + 4 * (xIndex + self.width * yIndex));
+-(JGPixel*)pixelWithX:(NSUInteger)xIndex y:(NSUInteger)yIndex{
+    return (JGPixel*)self.data.bytes + xIndex + self.width * yIndex;
 }
 
 -(UIImage*)image{
@@ -81,11 +82,13 @@
 }
 
 -(NSUInteger)width{
-    return CGImageGetWidth(self.imageRef);
+    if (!_width) _width = CGImageGetWidth(self.imageRef);
+    return _width;
 }
 
 -(NSUInteger)height{
-    return CGImageGetHeight(self.imageRef);
+    if (!_height) _height = CGImageGetHeight(self.imageRef);
+    return _height;
 }
 
 +(JGPixelData*)pixelDataWithImage:(UIImage*)image{
@@ -96,15 +99,23 @@
     return [[JGPixelData alloc]initWithSize:size];
 }
 
--(void)processPixelsWithBlock:(void (^)(JGColorComponents *color, int x, int y))updatePixelColor{
-    char *byte = (char*)self.data.bytes;
+-(void)processPixelsWithBlock:(void (^)(JGPixel *color, int x, int y))updatePixelColor{
     
+    JGPixel *pixel = self.firstPixel;
     for (int x = 0; x < self.width; x++) {
         for (int y = 0; y < self.height; y++) {
-            updatePixelColor((JGColorComponents*)byte, x, y);
-            byte += 4;
+            updatePixelColor(pixel++, x, y);
         }
     }
+}
+
+-(JGPixel*)firstPixel{
+    return (JGPixel*)self.data.bytes;
+}
+
+-(JGPixel*)lastPixel{
+    if (!_lastPixel) _lastPixel = ((JGPixel*)self.data.bytes + self.width * self.height - 1);
+    return _lastPixel;
 }
 
 @end
