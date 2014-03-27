@@ -1,7 +1,15 @@
 JGPixelData
 ===========
 
-JGPixelData simplifies the process of editing the raw pixel RGBA values of a UIImage. Simply create a JGPixelData object and directly modify the RGBA values of each pixel independently. In the following example, we use a block function to loop over all the pixels in an image and swap the values of their red and blue color components.
+JGPixelData simplifies the process of editing the raw pixel RGBA values of a UIImage. Simply create a JGPixelData object and directly modify the RGBA values of each pixel independently. 
+
+First, we create an instance of JGPixelData from a given UIImage.
+
+```
+JGPixelData *pixelData = [JGPixelData pixelDataWithImage:image];
+```
+
+Then, we use a block function to loop over all the pixels in an image and swap the values of their red and blue color components.
 
 ```
 [pixelData processPixelsWithBlock:^(JGColorComponents *color, int x, int y) {
