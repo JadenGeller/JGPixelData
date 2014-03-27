@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+#define JGPixelColorMin 0
+#define JGPixelColorMax 255
+
 typedef struct JGColorComponents {
     UInt8 red;
     UInt8 green;
@@ -16,7 +19,7 @@ typedef struct JGColorComponents {
     
 } JGPixel;
 
-@interface JGPixelData : NSObject
+@interface JGPixelData : NSObject <NSCopying>
 
 +(JGPixelData*)pixelDataWithImage:(UIImage*)image;
 +(JGPixelData*)pixelDataWithSize:(CGSize)size;
@@ -30,7 +33,9 @@ typedef struct JGColorComponents {
 @property (nonatomic, readonly) NSUInteger height;
 
 // Can be used for wacky iterations
-@property (nonatomic, readonly) JGPixel *firstPixel;
-@property (nonatomic, readonly) JGPixel *lastPixel;
+@property (nonatomic, readonly) JGPixel *start;
+@property (nonatomic, readonly) JGPixel *stop;
+
+-(BOOL)inRange:(JGPixel*)pixel;
 
 @end

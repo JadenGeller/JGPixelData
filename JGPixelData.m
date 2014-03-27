@@ -17,7 +17,19 @@
 
 @implementation JGPixelData
 
-@synthesize lastPixel = _lastPixel, width = _width, height = _height;
+@synthesize stop = _stop, width = _width, height = _height;
+
+- (id)copyWithZone:(NSZone *)zone
+{
+    JGPixelData *copy = [[[self class] alloc] init];
+    
+    if (copy) {
+        copy->_data = _data.copy;
+        copy->_imageRef = _imageRef;
+    }
+    
+    return copy;
+}
 
 -(id)initWithImage:(UIImage*)image{
     self = [super init];
@@ -46,7 +58,7 @@
 }
 
 -(UIImage*)image{
-    
+
     // Create new image from data
 
     size_t bitsPerComponent         = CGImageGetBitsPerComponent(self.imageRef);
@@ -101,7 +113,7 @@
 
 -(void)processPixelsWithBlock:(void (^)(JGPixel *color, int x, int y))updatePixelColor{
     
-    JGPixel *pixel = self.firstPixel;
+    JGPixel *pixel = self.start;
     for (int x = 0; x < self.width; x++) {
         for (int y = 0; y < self.height; y++) {
             updatePixelColor(pixel++, x, y);
@@ -109,13 +121,17 @@
     }
 }
 
--(JGPixel*)firstPixel{
+-(JGPixel*)start{
     return (JGPixel*)self.data.bytes;
 }
 
--(JGPixel*)lastPixel{
-    if (!_lastPixel) _lastPixel = ((JGPixel*)self.data.bytes + self.width * self.height - 1);
-    return _lastPixel;
+-(JGPixel*)stop{
+    if (!_stop) _stop = ((JGPixel*)self.data.bytes + self.width * self.height);
+    return _stop;
+}
+
+-(BOOL)inRange:(JGPixel*)pixel{
+    return (pixel >= self.start && pixel < self.stop);
 }
 
 @end
