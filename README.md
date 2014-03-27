@@ -96,3 +96,5 @@ Other
 ===========
 
 For convenience, JGPixelData provides a `width` and `height` method that returns the pixel width and pixel height, respectively, or the pixel data.
+
+Additionally, there is a UIImage category provided with the instance method `pixelData` that returns a JGPixelData object associated to the given image and a class method `imageWithPixelData:` that constructs a new UIImage from the contents of the JGPixelData. Note that these methods are just for convenices; JGPixelData has the equivalent methods `pixelDataWithImage:` and `image`. Use either set of methods based on your preference to have JGPixelData as the reciever or UIImage as the reciever.
