@@ -41,31 +41,36 @@
     _imageRef = image.CGImage;
     _data = (NSData *)CFBridgingRelease(CGDataProviderCopyData(CGImageGetDataProvider(self.imageRef)));
 }
+//
+//-(JGColorComponents)colorComponentsAtXIndex:(NSUInteger)xIndex yIndex:(NSUInteger)yIndex{
+//    
+//    char *byte = [self pointerForXIndex:xIndex yIndex:yIndex];
+//    
+//    JGColorComponents color;
+//    
+//    color.red   = *(byte++); // byte + 0
+//    color.green = *(byte++); // byte + 1
+//    color.blue  = *(byte++); // byte + 2
+//    color.alpha = *(byte);   // byte + 3
+//    
+//    return color;
+//}
 
--(JGColorComponents)colorComponentsAtXIndex:(NSUInteger)xIndex yIndex:(NSUInteger)yIndex{
+-(JGColorComponents*)colorComponentsAtXIndex:(NSUInteger)xIndex yIndex:(NSUInteger)yIndex{
     
-    char *byte = [self pointerForXIndex:xIndex yIndex:yIndex];
-    
-    JGColorComponents color;
-    
-    color.red   = *(byte++); // byte + 0
-    color.green = *(byte++); // byte + 1
-    color.blue  = *(byte++); // byte + 2
-    color.alpha = *(byte);   // byte + 3
-    
-    return color;
+    return (JGColorComponents*)[self pointerForXIndex:xIndex yIndex:yIndex];
 }
 
--(void)setColorComponents:(JGColorComponents)color atXIndex:(NSUInteger)xIndex yIndex:(NSUInteger)yIndex{
-    
-    char *byte = [self pointerForXIndex:xIndex yIndex:yIndex];
-    
-    *(byte++) = color.red;   // byte + 0
-    *(byte++) = color.green; // byte + 1
-    *(byte++) = color.blue;  // byte + 2
-    *(byte)   = color.alpha; // byte + 3
-
-}
+//-(void)setColorComponents:(JGColorComponents)color atXIndex:(NSUInteger)xIndex yIndex:(NSUInteger)yIndex{
+//    
+//    char *byte = [self pointerForXIndex:xIndex yIndex:yIndex];
+//    
+//    *(byte++) = color.red;   // byte + 0
+//    *(byte++) = color.green; // byte + 1
+//    *(byte++) = color.blue;  // byte + 2
+//    *(byte)   = color.alpha; // byte + 3
+//
+//}
 
 -(char *)pointerForXIndex:(NSUInteger)xIndex yIndex:(NSUInteger)yIndex{
     return ((char *)self.data.bytes + [self absoluteIndexForXIndex:xIndex yIndex:yIndex]);
@@ -137,12 +142,12 @@
 }
 
 -(void)processPixelsWithBlock:(void (^)(JGColorComponents *color, int x, int y))updatePixelColor{
+    char *byte = (char*)self.data.bytes;
+    
     for (int x = 0; x < self.width; x++) {
         for (int y = 0; y < self.height; y++) {
-            JGColorComponents color = [self colorComponentsAtXIndex:x yIndex:y];
-            updatePixelColor(&color, x, y);
-            
-            [self setColorComponents:color atXIndex:x yIndex:y];
+            updatePixelColor((JGColorComponents*)byte, x, y);
+            byte += 4;
         }
     }
 }

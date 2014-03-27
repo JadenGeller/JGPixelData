@@ -22,9 +22,9 @@ typedef struct ColorComponents {
 
 +(JGPixelData*)pixelDataWithImage:(UIImage*)image;
 +(JGPixelData*)pixelDataWithSize:(CGSize)size;
--(JGColorComponents)colorComponentsAtXIndex:(NSUInteger)xIndex yIndex:(NSUInteger)yIndex;
--(void)setColorComponents:(JGColorComponents)color atXIndex:(NSUInteger)xIndex yIndex:(NSUInteger)yIndex;
--(JGPixel*)pixelAtXIndex:(NSUInteger)xIndex yIndex:(NSUInteger)yIndex;
+
+-(JGColorComponents*)colorComponentsAtXIndex:(NSUInteger)xIndex yIndex:(NSUInteger)yIndex;
+//-(JGPixel*)pixelAtXIndex:(NSUInteger)xIndex yIndex:(NSUInteger)yIndex;
 
 -(void)processPixelsWithBlock:(void (^)(JGColorComponents *color, int x, int y))updatePixelColor;
 
@@ -33,6 +33,8 @@ typedef struct ColorComponents {
 @property (nonatomic, readonly) NSUInteger height;
 
 @end
+
+// I RECOMMEND IGNORING THIS CLASS -- FAST ENUMATION ON JGPIXELDATA IS SLOWWWWWW
 
 @interface JGPixel : NSObject
 

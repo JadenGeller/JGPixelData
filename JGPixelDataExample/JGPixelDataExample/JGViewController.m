@@ -35,7 +35,6 @@
             color->green = temp;
         }
     }];
-
     
     self.afterImage.image = pixelData.image;
 }
