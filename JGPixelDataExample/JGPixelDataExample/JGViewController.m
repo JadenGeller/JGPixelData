@@ -8,6 +8,7 @@
 
 #import "JGViewController.h"
 #import "JGPixelData.h"
+#import "UIImage+JGPixelData.h"
 
 @interface JGViewController ()
 
@@ -34,6 +35,7 @@
             color->green = temp;
         }
     }];
+
     
     self.afterImage.image = pixelData.image;
 }

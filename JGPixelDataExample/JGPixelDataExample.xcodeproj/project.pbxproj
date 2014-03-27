@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		D71BC0F918A0AC24008B6D18 /* JGPixelData.m in Sources */ = {isa = PBXBuildFile; fileRef = D71BC0F818A0AC24008B6D18 /* JGPixelData.m */; };
 		D71BC0FF18A0AECA008B6D18 /* test_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D71BC0FE18A0AEC9008B6D18 /* test_image.jpg */; };
+		D73348E318E40E13000CC921 /* UIImage+JGPixelData.m in Sources */ = {isa = PBXBuildFile; fileRef = D73348E218E40E13000CC921 /* UIImage+JGPixelData.m */; };
 		D7817B7318A0ABB800E80384 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7817B7218A0ABB800E80384 /* Foundation.framework */; };
 		D7817B7518A0ABB800E80384 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7817B7418A0ABB800E80384 /* CoreGraphics.framework */; };
 		D7817B7718A0ABB800E80384 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7817B7618A0ABB800E80384 /* UIKit.framework */; };
@@ -39,6 +40,8 @@
 		D71BC0F718A0AC24008B6D18 /* JGPixelData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JGPixelData.h; path = ../JGPixelData.h; sourceTree = "<group>"; };
 		D71BC0F818A0AC24008B6D18 /* JGPixelData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JGPixelData.m; path = ../JGPixelData.m; sourceTree = "<group>"; };
 		D71BC0FE18A0AEC9008B6D18 /* test_image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test_image.jpg; sourceTree = "<group>"; };
+		D73348E118E40E13000CC921 /* UIImage+JGPixelData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+JGPixelData.h"; sourceTree = "<group>"; };
+		D73348E218E40E13000CC921 /* UIImage+JGPixelData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+JGPixelData.m"; sourceTree = "<group>"; };
 		D7817B6F18A0ABB800E80384 /* JGPixelDataExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JGPixelDataExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7817B7218A0ABB800E80384 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D7817B7418A0ABB800E80384 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -124,6 +127,8 @@
 				D7817B8418A0ABB800E80384 /* Main.storyboard */,
 				D7817B8718A0ABB800E80384 /* JGViewController.h */,
 				D7817B8818A0ABB800E80384 /* JGViewController.m */,
+				D73348E118E40E13000CC921 /* UIImage+JGPixelData.h */,
+				D73348E218E40E13000CC921 /* UIImage+JGPixelData.m */,
 				D7817B8A18A0ABB800E80384 /* Images.xcassets */,
 				D71BC0FE18A0AEC9008B6D18 /* test_image.jpg */,
 				D7817B7918A0ABB800E80384 /* Supporting Files */,
@@ -260,6 +265,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D7817B7F18A0ABB800E80384 /* main.m in Sources */,
+				D73348E318E40E13000CC921 /* UIImage+JGPixelData.m in Sources */,
 				D71BC0F918A0AC24008B6D18 /* JGPixelData.m in Sources */,
 				D7817B8918A0ABB800E80384 /* JGViewController.m in Sources */,
 				D7817B8318A0ABB800E80384 /* JGAppDelegate.m in Sources */,
